@@ -1,0 +1,9 @@
+name:  first
+
+on: workflow_dispatch
+jobs:
+ firat-job:
+   runs-on: ubuntu-22.04
+   steps:
+     - name: firststep
+       run: echo 'hi'
