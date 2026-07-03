@@ -37,7 +37,13 @@ jobs:
       - name: geting git info
         run: echo '${{tojson(github)}}'
       - name: geting git using env info
-        run: echo '$(GITHUB_*)'
+        run: env | grep GITHUB_
+      - name: get branch name
+        id: get_branch
+        run: echo "branch=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+
+      - name: use branch name
+        run: echo "The branch is ${{ steps.get_branch.outputs.branch }}"
       #    "branch=${GITHUB_REF#refs/heads/}" >> "$GITHUB_OUTPUT"
 
       # - name: print branch name
