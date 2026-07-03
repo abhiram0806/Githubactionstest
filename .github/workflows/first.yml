@@ -26,4 +26,8 @@ jobs:
         run: npm -v  
       - name: checking user
         run: whoami
-
+  Githubinfo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get branch name
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
