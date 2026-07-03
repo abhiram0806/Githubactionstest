@@ -31,3 +31,5 @@ jobs:
     steps:
       - name: get branch name
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      - name: printing branchname
+        run: echo "Branch name is ${{ steps.get-branch-name.outputs.branch }}"
