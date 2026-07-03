@@ -34,3 +34,9 @@ jobs:
         id: get-branch-name
       - name: printing branchname
         run: echo "Branch name is ${{ steps.get-branch-name.outputs.branch }}"
+      - name: geting git info
+        run: echo '${{tojson(github)}}'
+      #    "branch=${GITHUB_REF#refs/heads/}" >> "$GITHUB_OUTPUT"
+
+      # - name: print branch name
+      #   run: echo "Branch is ${{ steps.get_branch.outputs.branch }}"
