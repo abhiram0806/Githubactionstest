@@ -18,4 +18,6 @@ jobs:
           node-version: '19'
       - name: checking npm version
         run: npm -v  
+      - name: checking user
+        run: whoami
 
