@@ -1,48 +1,57 @@
 name: third
-on : 
-    push:
-        branches:
-            - main
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-    first:
-        runs-on: ubuntu-22.04
-        outputs:
-            outpu1: ${{ steps.set-output.outputs.outpu1}}
-        steps:
-            - name: firststep
-              run: echo 'hi' >> output.txt
-            - name: secondstep
-              run: echo "bye" >> output.txt
-            - name: upload artifacts
-              uses: actions/upload-artifact@v7
-              with:
-                name: first-artifact
-                path: output.txt
-            - name: setting branch name
-              run: |
-               echo "outpu1 = out1" >> "$GITHUB_OUTPUT"
-               echo "output2 = out2" >> "$GITHUB_OUTPUT"
-              id: set-output
-            - name: printing otput
-              run: echo "output1 is ${{ steps.set-output.outputs.outpu1 }} ${{ steps.set-output.outputs.output2 }}"
-            - name: seting env
-              run: echo 'envvar1= hello' >> "$GITHUB_ENV"
-            - name: print env
-              run: echo "envvar1 is $envvar1"
-    second:
-        runs-on: ubuntu-22.04
-        needs: [first]
-        steps:
-            - name: download artifacts
-              uses: actions/download-artifact@v7
-              with:
-                name: first-artifact
-            - name: print output
-              run: |
-               cat output.txt
-               ls
-            - name: printing otput
-              run: echo "output1 is ${{ needs.first.outputs.outpu1 }} "
-            
-           
+  first:
+    runs-on: ubuntu-22.04
+    outputs:
+      outpu1: ${{ steps.set-output.outputs.outpu1 }}
+      output2: ${{ steps.set-output.outputs.output2 }}
+    steps:
+      - name: firststep
+        run: echo 'hi' >> output.txt
+
+      - name: secondstep
+        run: echo "bye" >> output.txt
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: first-artifact
+          path: output.txt
+
+      - name: setting outputs
+        id: set-output
+        run: |
+          echo "outpu1=out1" >> "$GITHUB_OUTPUT"
+          echo "output2=out2" >> "$GITHUB_OUTPUT"
+
+      - name: printing output
+        run: echo "output1 is ${{ steps.set-output.outputs.outpu1 }} ${{ steps.set-output.outputs.output2 }}"
+
+      - name: setting env
+        run: echo "envvar1=hello" >> "$GITHUB_ENV"
+
+      - name: print env
+        run: echo "envvar1 is $envvar1"
+
+  second:
+    runs-on: ubuntu-22.04
+    needs: [first]
+    steps:
+      - name: download artifacts
+        uses: actions/download-artifact@v7
+        with:
+          name: first-artifact
+
+      - name: print output
+        run: |
+          cat output.txt
+          ls
+
+      - name: printing output
+        run: echo "output1 is ${{ needs.first.outputs.outpu1 }} output2 is ${{ needs.first.outputs.output2 }}"
