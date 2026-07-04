@@ -1,4 +1,4 @@
-name: second
+name: third
 on : 
     push:
         branches:
@@ -21,7 +21,7 @@ jobs:
                 path: output.txt
             - name: setting branch name
               run: |
-               echo "outpu1 = 'out1'" >> "$GITHUB_OUTPUT"
+               echo "outpu1 = out1" >> "$GITHUB_OUTPUT"
                echo 'output2 = out2' >> "$GITHUB_OUTPUT"
               id: set-output
             - name: printing otput
