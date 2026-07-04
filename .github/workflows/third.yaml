@@ -8,7 +8,7 @@ jobs:
     first:
         runs-on: ubuntu-22.04
         outputs:
-            branch:
+            outpu1: ${{ steps.set-output}}
         steps:
             - name: firststep
               run: echo 'hi' >> output.txt
@@ -20,7 +20,12 @@ jobs:
                 name: first-artifact
                 path: output.txt
             - name: setting branch name
-              run: echo "branch=${GITHUB_REF#refs/heads/}" >> "$GITHUB_OUTPUT"
+              run: |
+               echo "outpu1 = 'out1'" >> "$GITHUB_OUTPUT"
+               echo 'output2 = out2' >> "$GITHUB_OUTPUT"
+              id: set-output
+            - name: printing otput
+              run: echo "output1 is ${{ steps.set-output.outputs.outpu1 }} ${{ steps.set-output.outputs.output2 }}"
             - name: seting env
               run: echo 'envvar1= hello' >> "$GITHUB_ENV"
             - name: print env
@@ -37,5 +42,8 @@ jobs:
               run: |
                cat output.txt
                ls
+            - name: printing otput
+              run: echo "output1 is ${{ needs.first.outputs.outpu1 }} "
+            
             - name: print branch name
               run: echo "Branch is ${{ needs.first.outputs.branch }}"
