@@ -13,7 +13,7 @@ jobs:
             - name: secondstep
               run: echo "bye" >> output.txt
             - name: upload artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v7
               with:
                 name: first-artifact
                 path: output.txt
@@ -22,7 +22,7 @@ jobs:
         needs: [first]
         steps:
             - name: download artifacts
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v7
               with:
                 name: first-artifact
             - name: print output
