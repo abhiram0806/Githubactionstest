@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-22.04
     outputs:
       outpu1: ${{ steps.set-output.outputs.outpu1 }}
-      output2: ${{ steps.set-output.outputs.output2 }}
+    #   output2: ${{ steps.set-output.outputs.output2 }}
     steps:
       - name: firststep
         run: echo 'hi' >> output.txt
@@ -54,4 +54,4 @@ jobs:
           ls
 
       - name: printing output
-        run: echo "output1 is ${{ needs.first.outputs.outpu1 }} output2 is ${{ needs.first.outputs.output2 }}"
+        run: echo "output1 is ${{ needs.first.outputs.outpu1 }} "
