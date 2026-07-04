@@ -22,7 +22,7 @@ jobs:
             - name: setting branch name
               run: |
                echo "outpu1 = out1" >> "$GITHUB_OUTPUT"
-               echo 'output2 = out2' >> "$GITHUB_OUTPUT"
+               echo "output2 = out2" >> "$GITHUB_OUTPUT"
               id: set-output
             - name: printing otput
               run: echo "output1 is ${{ steps.set-output.outputs.outpu1 }} ${{ steps.set-output.outputs.output2 }}"
