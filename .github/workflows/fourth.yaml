@@ -1,0 +1,53 @@
+name: fourth
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  first:
+    runs-on: ubuntu-22.04
+    outputs:
+      outpu1: ${{ steps.set-output.outputs.outpu1 }}
+    #   output2: ${{ steps.set-output.outputs.output2 }}
+    steps:
+      - name: firststep
+        run: echo 'hi' >> output.txt
+
+      - name: secondstep
+        run: echo "bye" >> output.txt
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: first-artifact
+          path: output.txt
+
+      - name: setting cache
+        uses: actions/cache@v3
+        with:
+            path: output.txt
+            key: output-cache
+  second:
+    runs-on: ubuntu-22.04
+    needs: [first]
+    steps:
+      - name: restore cache
+        uses: actions/cache@v3
+        with:
+            path: output.txt
+            key: output-cache
+
+      - name: download artifacts
+        uses: actions/download-artifact@v7
+        with:
+          name: first-artifact
+
+      - name: print output
+        run: |
+          cat output.txt
+          ls
+
+      - name: printing output
+        run: echo "output1 is ${{ needs.first.outputs.outpu1 }} "
